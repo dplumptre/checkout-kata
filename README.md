@@ -6,7 +6,8 @@ I did not persist data so I used arrays, I decided to use just php not laravel
 
 ### Instruction
 - After pulling the repo
-- Do composer autoload : load in the vendor and other files
+- Do composer dump-autoload : Generate the autoload files
+- Drop the file in folder where php will work like (like Laravel Valet, Homestead, XAMPP, etc.)
 
 ### Note
 - Please make sure to use  PHP 8.1.
