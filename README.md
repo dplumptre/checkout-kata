@@ -2,6 +2,8 @@
 
 ## Checkout Kata
 
+I did not persist data so I used arrays, I decided to use just php not laravel
+
 ### Instruction
 - After pulling the repo
 - Do composer autoload : load in the vendor and other files
