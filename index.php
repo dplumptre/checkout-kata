@@ -29,13 +29,13 @@ $promotions = [
 // the checkout
 $m = new Checkout($itemAndPrice,$promotions);
 $m->scan('A');
-//$m->scan('B');
-//$m->scan('B');
-//$m->scan('B');
-//$m->scan('E');
-//$m->scan('D');
-//$m->scan('E');
-//$m->scan('D');
+$m->scan('B');
+$m->scan('B');
+$m->scan('B');
+$m->scan('E');
+$m->scan('D');
+$m->scan('E');
+$m->scan('D');
 $m->scan('C');
 
 
