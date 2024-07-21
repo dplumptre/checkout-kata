@@ -12,7 +12,7 @@ require __DIR__ . '/vendor/autoload.php';
 $itemAndPrice = [
     'A' => 50.00,
     'B' => 75.00,
-    'C' => 25.50,
+    'C' => 25.00,
     'D' => 150.00,
     'E' => 200.00,
 ];
@@ -21,21 +21,22 @@ $itemAndPrice = [
 // the promotions
 $promotions = [
     new \Fluro\promotions\DoubleBPromotion( $itemAndPrice, 125),
-    new \Fluro\promotions\DEPromotion( $itemAndPrice, 300)
+    new \Fluro\promotions\DEPromotion( $itemAndPrice, 300),
+    new \Fluro\promotions\CPromotion( $itemAndPrice, 75)
 ];
 
 
 // the checkout
 $m = new Checkout($itemAndPrice,$promotions);
-//$m->scan('A');
+$m->scan('A');
 //$m->scan('B');
 //$m->scan('B');
 //$m->scan('B');
-$m->scan('E');
-$m->scan('D');
-$m->scan('E');
-$m->scan('D');
-$m->scan('E');
+//$m->scan('E');
+//$m->scan('D');
+//$m->scan('E');
+//$m->scan('D');
+$m->scan('C');
 
 
 echo $m->calculateTotal();
