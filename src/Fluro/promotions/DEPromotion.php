@@ -8,7 +8,7 @@ class DEPromotion implements Promotion
 {
 
 
-    private int $target = 3;
+
     private float $special_price;
     private array $items;
 
@@ -22,21 +22,29 @@ class DEPromotion implements Promotion
     public function apply(&$scannedItemsAndCount, &$total):void
     {
 
-        if(isset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_D->value])){
-            $skuD =  PromotionType::PROMOTION_TYPE_D->value;
+
+        if( isset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_D->value])  && isset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_E->value])){
+
+            $dCount = $scannedItemsAndCount[PromotionType::PROMOTION_TYPE_D->value];
+            $eCount = $scannedItemsAndCount[PromotionType::PROMOTION_TYPE_E->value];
+
+            $pair_count = min($dCount,$eCount);
+            $total += $this->special_price *  $pair_count;
+
+            $newItemsAndCount[PromotionType::PROMOTION_TYPE_D->value] =   $dCount - $pair_count;
+            $newItemsAndCount[PromotionType::PROMOTION_TYPE_E->value] =   $eCount - $pair_count;
+
+            foreach ($newItemsAndCount as $sku => $count) {
+                $total += $this->items[$sku] *  $count;
+            }
+
+            unset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_D->value]);
+            unset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_E->value]);
         }
 
-        if(isset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_E->value])){
-            $skuE =  PromotionType::PROMOTION_TYPE_E->value;
-        }
 
 
-        if( $skuE === null && $skuD === null )return;
 
-        $price = $this->items[$sku];
-        $AmountOfDoublePromoSku = floor($scannedItemsAndCount[$sku] / $this->target);
-        $AmountOfWithoutThePromo = $scannedItemsAndCount[$sku] % $this->target;
-        $total += $this->special_price *  $AmountOfDoublePromoSku + $price *  $AmountOfWithoutThePromo;
-        unset($scannedItemsAndCount[$sku]);
+
     }
 }

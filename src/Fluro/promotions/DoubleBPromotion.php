@@ -7,7 +7,7 @@ use Fluro\enum\PromotionType;
 class DoubleBPromotion implements Promotion
 {
 
-    private string  $sku;
+
     private int $target = 2;
     private float $special_price;
     private float $price;
@@ -16,7 +16,6 @@ class DoubleBPromotion implements Promotion
 
     public function __construct(array $items, float $special_price)
     {
-        $this->sku = PromotionType::PROMOTION_TYPE_B->value;
         $this->price = $items[PromotionType::PROMOTION_TYPE_B->value];
         $this->special_price = $special_price;
     }
@@ -24,13 +23,11 @@ class DoubleBPromotion implements Promotion
 
     public function apply(&$scannedItemsAndCount, &$total):void
     {
-
-            if(!isset($scannedItemsAndCount[$this->sku])) return;
-            $AmountOfDoublePromoSku = floor($scannedItemsAndCount[$this->sku] / $this->target);
-            $AmountOfWithoutThePromo = $scannedItemsAndCount[$this->sku] % $this->target;
+            if(!isset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_B->value])) return;
+            $AmountOfDoublePromoSku = floor($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_B->value] / $this->target);
+            $AmountOfWithoutThePromo = $scannedItemsAndCount[PromotionType::PROMOTION_TYPE_B->value] % $this->target;
             $total += $this->special_price *  $AmountOfDoublePromoSku + $this->price *  $AmountOfWithoutThePromo;
-            unset($scannedItemsAndCount[$this->sku]);
-
+            unset($scannedItemsAndCount[PromotionType::PROMOTION_TYPE_B->value]);
     }
 
 

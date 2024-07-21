@@ -38,6 +38,8 @@ class Checkout
             $promotion->apply($this->scannedItemsAndCount,$total);
         }
 
+
+
         foreach ($this->scannedItemsAndCount as $sku => $count ) {
             $total += $count * $this->itemAndPrice[$sku];
         }
